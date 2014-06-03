@@ -20,13 +20,23 @@
 namespace Bast1aan\HttpMvc {
 
 	/**
-	 * Controller that uses Views
+	 * Controller that sets up and renders Views
+	 * @see \Bast1aan\HttpMvc\View\View
 	 */
 	abstract class ViewController extends AbstractController {
 
-		public function doRequest(Request $request, Response $response) {
-			parent::doRequest($request, $response);
+		public function preRequest(Request $request, Response $response) {
+			parent::preRequest($request, $response);
 			$request->setView($this->newView());
+		}
+
+		public function postRequest(Request $request, Response $response) {
+			parent::postRequest($request, $response);
+			// render view, if available
+			$view = $request->getView();
+			if ($view != null) {
+				$response->appendBody($view->render());
+			}
 		}
 
 		/**

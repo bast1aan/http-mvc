@@ -54,10 +54,6 @@ class Application {
 			$controller->preRequest($request, $response);
 			$controller->doRequest($request, $response);
 			$controller->postRequest($request, $response);
-			$view = $request->getView();
-			if ($view != null) {
-				$response->setBody($view->render());
-			}
 		} catch (NotFoundException $e) {
 			$response->setResponseCode(404);
 			$response->setBody($e->getMessage());
