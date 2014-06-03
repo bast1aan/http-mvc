@@ -53,6 +53,7 @@ class Application {
 		$controller = $this->config->getControllerByPath($pathInfo, $this);
 
 		try {
+			$controller->doRequest($request, $response);
 			switch($request->getRequestMethod()) {
 				case Request::HTTP_METHOD_DELETE:
 					$controller->doDelete($request, $response);
