@@ -42,7 +42,22 @@ abstract class AbstractController {
 	 * @param Response $response
 	 * @throws NotFoundException|ServerErrorException
 	 */
+	public function preRequest(Request $request, Response $response) {}
+
+
+	/**
+	 * @param Request $request
+	 * @param Response $response
+	 * @throws NotFoundException|ServerErrorException
+	 */
 	public function doRequest(Request $request, Response $response) {}
+
+	/**
+	 * @param Request $request
+	 * @param Response $response
+	 * @throws NotFoundException|ServerErrorException
+	 */
+	public function postRequest(Request $request, Response $response) {}
 
 
 }
