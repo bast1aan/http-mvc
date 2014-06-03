@@ -21,6 +21,7 @@ namespace Bast1aan\HttpMvc;
 
 use ArrayAccess;
 use BadMethodCallException;
+use Bast1aan\HttpMvc\View\View;
 
 class Request implements ArrayAccess {
 
@@ -41,6 +42,13 @@ class Request implements ArrayAccess {
 	const HTTP_METHOD_POST = 'POST';
 
 	const HTTP_METHOD_DELETE = 'DELETE';
+
+	/**
+	 * @var View
+	 */
+	private $view;
+
+	private $attributes = array();
 
 	public function __construct(array $get = null, array $post = null, array $server = null, array $cookie = null, array $session = null) {
 		if ($get == null) {
@@ -173,6 +181,45 @@ class Request implements ArrayAccess {
 	 */
 	public function offsetUnset($offset) {
 		throw new BadMethodCallException(sprintf("instance of %s is read-only", __CLASS__));
+	}
+
+	/**
+	 * @param View $view
+	 */
+	public function setView(View $view) {
+		$this->view = $view;
+	}
+
+	/**
+	 * @return View
+	 */
+	public function getView() {
+		return $this->view;
+	}
+
+	/**
+	 * @param string $name
+	 * @param mixed $attr
+	 */
+	public function setAttribute($name, $attr) {
+		$this->attributes[$name] = $attr;
+	}
+
+	/**
+	 * @param string $name
+	 * @return mixed
+	 */
+	public function getAttribute($name) {
+		if (isset($this->attributes[$name]))
+			return $this->attributes[$name];
+	}
+
+	/**
+	 * @param string $name
+	 * @return bool
+	 */
+	public function hasAttribute($name) {
+		return isset($this->attributes[$name]) && $this->attributes[$name] != null;
 	}
 
 }
