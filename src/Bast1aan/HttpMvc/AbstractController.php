@@ -72,7 +72,4 @@ abstract class AbstractController {
 	 */
 	public function doDelete(Request $request, Response $response) {}
 
-
-	/** @return View */ public abstract function getView();
-
 }
