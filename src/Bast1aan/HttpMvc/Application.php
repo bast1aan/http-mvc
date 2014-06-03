@@ -21,8 +21,6 @@ namespace Bast1aan\HttpMvc;
 
 class Application {
 
-	const HTTP_METHOD_NOT_ALLOWED = "<h1>Method not allowed</h1>\nUnknown HTTP method";
-
 	/**
 	 * @var Config
 	 */
@@ -53,26 +51,9 @@ class Application {
 		$controller = $this->config->getControllerByPath($pathInfo, $this);
 
 		try {
+			$controller->preRequest($request, $response);
 			$controller->doRequest($request, $response);
-			switch($request->getRequestMethod()) {
-				case Request::HTTP_METHOD_DELETE:
-					$controller->doDelete($request, $response);
-					break;
-				case Request::HTTP_METHOD_GET:
-					$controller->doGet($request, $response);
-					break;
-				case Request::HTTP_METHOD_POST:
-					$controller->doPost($request, $response);
-					break;
-				case Request::HTTP_METHOD_PUT:
-					$controller->doPut($request, $response);
-					break;
-				default:
-					$response->setResponseCode(400);
-					$response->setBody(self::HTTP_METHOD_NOT_ALLOWED);
-					$this->output($response);
-					return;
-			}
+			$controller->postRequest($request, $response);
 			$view = $request->getView();
 			if ($view != null) {
 				$response->setBody($view->render());
