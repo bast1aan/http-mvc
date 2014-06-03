@@ -73,7 +73,7 @@ class Application {
 					$this->output($response);
 					return;
 			}
-			$view = $controller->getView();
+			$view = $request->getView();
 			if ($view != null) {
 				$response->setBody($view->render());
 			}
