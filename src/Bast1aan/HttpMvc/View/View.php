@@ -29,11 +29,6 @@ namespace Bast1aan\HttpMvc\View {
 		protected $controller;
 
 		/**
-		 * @var Layout
-		 */
-		protected $layout;
-
-		/**
 		 * @var string
 		 */
 		protected $script;
@@ -63,13 +58,7 @@ namespace Bast1aan\HttpMvc\View {
 			require $script;
 			$body = ob_get_clean();
 
-			if ($this->layout != null) {
-				// if layout is there, use it to render
-				$this->layout->setBody($body);
-				return $this->layout->render();
-			} else {
-				return $body;
-			}
+			return $body;
 		}
 
 		/**
@@ -78,18 +67,6 @@ namespace Bast1aan\HttpMvc\View {
 		public function getScript() {
 			return $this->script;
 		}
-
-		public function setLayout(Layout $layout) {
-			$this->layout = $layout;
-		}
-
-		/**
-		 * @return Layout
-		 */
-		public function getLayout() {
-			return $this->layout;
-		}
-
 
 	}
 }

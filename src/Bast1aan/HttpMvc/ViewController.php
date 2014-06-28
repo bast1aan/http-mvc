@@ -28,8 +28,6 @@ namespace Bast1aan\HttpMvc {
 		public function preRequest(Request $request, Response $response) {
 			parent::preRequest($request, $response);
 			$view = $this->newView();
-			$layout = $this->newLayout();
-			$view->setLayout($layout);
 			$request->setView($view);
 		}
 
@@ -49,11 +47,5 @@ namespace Bast1aan\HttpMvc {
 		 */
 		abstract public function newView();
 
-		/**
-		 * Create a new Layout object for a request.
-		 *
-		 * @return \Bast1aan\HttpMvc\View\Layout
-		 */
-		abstract public function newLayout();
 	}
 }
