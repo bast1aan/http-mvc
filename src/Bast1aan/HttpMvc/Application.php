@@ -52,8 +52,12 @@ class Application {
 
 		try {
 			$controller->preRequest($request, $response);
-			$controller->doRequest($request, $response);
-			$controller->postRequest($request, $response);
+			if (!$response->isRedirect()) {
+				$controller->doRequest($request, $response);
+			}
+			if (!$response->isRedirect()) {
+				$controller->postRequest($request, $response);
+			}
 		} catch (NotFoundException $e) {
 			$response->setResponseCode(404);
 			$response->setBody($e->getMessage());

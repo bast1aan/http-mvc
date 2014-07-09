@@ -84,5 +84,29 @@ namespace Bast1aan\HttpMvc {
 			return $this->responseCode;
 		}
 
+		/**
+		 * @param string $location
+		 */
+		public function redirect($location) {
+			$this->addHeader(sprintf('Location: %s', $location));
+			$this->responseCode = 302;
+		}
+
+		/**
+		 * @param string $location
+		 */
+		public function redirectPermanent($location) {
+			$this->addHeader(sprintf('Location: %s', $location));
+			$this->responseCode = 301;
+		}
+
+		/**
+		 * @return bool
+		 */
+		public function isRedirect() {
+			return intval($this->responseCode / 100) == 3;
+		}
+
+
 	}
 }
